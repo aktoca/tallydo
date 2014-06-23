@@ -8,6 +8,6 @@ class User < ActiveRecord::Base
   validates :email, uniqueness: true
 
   has_many :tasks
-  has_many :doables, through: :tasks
+  has_many :movies, through: :tasks, source: :doable, source_type: "Movie"
 
 end
