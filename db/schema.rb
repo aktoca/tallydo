@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140617023541) do
+ActiveRecord::Schema.define(version: 20140623204433) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,16 @@ ActiveRecord::Schema.define(version: 20140617023541) do
     t.string   "actors",      default: [], array: true
     t.string   "imdbid"
     t.string   "poster"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "tasks", force: true do |t|
+    t.integer  "user_id",                     null: false
+    t.integer  "doable_id",                   null: false
+    t.string   "doable_type",                 null: false
+    t.boolean  "done",        default: false, null: false
+    t.string   "notes"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

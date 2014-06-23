@@ -6,4 +6,8 @@ class User < ActiveRecord::Base
   validates :password_confirmation, :email, presence: true
 
   validates :email, uniqueness: true
+
+  has_many :tasks
+  has_many :doables, through: :tasks
+
 end
