@@ -8,13 +8,10 @@ describe Movie do
   it "is invalid without a title" do 
     expect(Movie.new(movie_title: nil, year: 2001, director: 'John Doe')).to_not be_valid 
   end
-  it "is invalid without a year, director" do 
+  it "is invalid without a year or director" do 
     expect(@title_only).to_not be_valid 
   end
-  it "is valid without a description b/c it creates a default" do 
-   expect(@needed_only[:description]).to eq('Not avaliable')
-  end
-  it "is valid without actor, aka_title, imdb_id, or poster" do 
+  it "is valid without actor, aka_title, description, imdb_id, or poster" do 
     expect(@needed_only).to be_valid 
   end
 
