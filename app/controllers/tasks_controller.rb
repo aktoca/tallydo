@@ -9,5 +9,6 @@ class TasksController < ApplicationController
   end
 
   def index
+      @user = User.first
   end
 end
