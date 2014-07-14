@@ -1,6 +1,5 @@
 class UsersController < ApplicationController
   skip_before_filter :require_login, only: [:index, :new, :create]
-
   def new
     @user = User.new
   end
@@ -13,6 +12,10 @@ class UsersController < ApplicationController
       render 'new'
     end
   end
+
+def show
+  @user = User.find(params[:id])
+end
 
   private 
   def user_params
