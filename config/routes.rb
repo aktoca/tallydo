@@ -1,6 +1,7 @@
 Tallydo::Application.routes.draw do
 
   root 'movies#index'
+
   
   resources :sessions
   resources :users do
@@ -11,6 +12,10 @@ Tallydo::Application.routes.draw do
   post 'logout' => 'sessions#destroy', :as => :logout
   
   resources :movies
+  resources :lists
+  resources :rankings
+
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
