@@ -1,4 +1,4 @@
-<% @movies.each do |movie| %>
+<% movies.each do |movie| %>
   <div>
     <%= link_to "#{movie.movie_title} (#{movie.year})", movie_path(movie.id) %>
   </div>
