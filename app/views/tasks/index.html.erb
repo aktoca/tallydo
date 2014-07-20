@@ -1,2 +1,21 @@
 <h1>Tasks#index</h1>
-<p>Find me in app/views/tasks/index.html.erb</p>
+<p> Total: <%= @user.tasks.length %> </p>
+<%= @me %>
+<p>Movies: <%= @user.movies.length %></p>
+<div> <%= render partial: '/movies/movies_each', locals: {movies: @user.movies.all } %>
+</div>
+
+<div style="border:1px solid red">
+  <% @user.tasks.each do |task| %>
+    <%= form_tag user_task_path(current_user, task.id), method: :PUT do %>
+        <%= hidden_field_tag :done, 'true' %>
+          <%= submit_tag 'Seen It' %>
+        <% end %>
+<div> []<%= task.done %></div>
+<div><%= Movie.find(task.id).movie_title%></div>
+<div><%= Movie.find(task.id).year %></div>
+<div><%= Movie.find(task.id).director%></div>
+
+    <%end %>
+
+</div>
