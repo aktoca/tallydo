@@ -3,7 +3,10 @@ Tallydo::Application.routes.draw do
   root 'movies#index'
   
   resources :sessions
-  resources :users
+  resources :users do
+    resources :tasks
+  end
+   
   get 'login' => 'sessions#new', :as => :login
   post 'logout' => 'sessions#destroy', :as => :logout
   
