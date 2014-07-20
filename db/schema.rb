@@ -11,10 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140623204433) do
+ActiveRecord::Schema.define(version: 20140720031226) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "lists", force: true do |t|
+    t.string   "name",                       null: false
+    t.integer  "year"
+    t.string   "creator",                    null: false
+    t.boolean  "ongoing",    default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "movies", force: true do |t|
     t.string   "movie_title"
@@ -28,6 +37,18 @@ ActiveRecord::Schema.define(version: 20140623204433) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "rankings", force: true do |t|
+    t.integer  "doable_id"
+    t.string   "doable_type"
+    t.integer  "list_id"
+    t.integer  "rank"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "rankings", ["doable_id", "doable_type"], name: "index_rankings_on_doable_id_and_doable_type", using: :btree
+  add_index "rankings", ["list_id"], name: "index_rankings_on_list_id", using: :btree
 
   create_table "tasks", force: true do |t|
     t.integer  "user_id",                     null: false
