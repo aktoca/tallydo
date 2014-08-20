@@ -13,8 +13,9 @@ class ListsController < ApplicationController
   end
 
   def addUser
-    current_user.lists << List.find(params[:id])
-    redirect_back_or_to(user_path(current_user) , notice: 'Added List successful')
+    list = List.find(params[:id])
+    current_user.lists << list
+    redirect_to addList_path(list)
   end
 
   private 
