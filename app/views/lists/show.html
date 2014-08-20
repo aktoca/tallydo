@@ -1,0 +1,14 @@
+<h1>List</h1>
+<h2><%= @list.name %></h2>
+  <div class="add"> 
+    <% if @list.users.exists?(current_user) %>
+     **current%done 
+    <% elsif current_user %>
+      <%= button_to( "Add", addUser_path(@list.id)  ) %>
+    <% end %>
+  </div> 
+
+<% @list.rankings.each do |rank| %>
+<% movie =  Movie.find(rank.doable_id) %>
+<div><%= movie.movie_title %> (<%= movie.year %>)</div>
+<% end %>

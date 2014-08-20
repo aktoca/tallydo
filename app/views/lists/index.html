@@ -2,10 +2,15 @@
   <% @lists.each do |list| %>
   <%= link_to list.name, list_path(list.id) %>
   <div class="add"> 
-    <%= button_to( "Add", addUser_path(list.id)  ) %>
-</div>
+    <% if list.users.exists?(current_user) %>
+     **current%done 
+    <% elsif current_user %>
+      <%= button_to( "Add", addUser_path(list.id)  ) %>
+    <% end %>
+
+  </div>
   <% end %>
 </div>
 
 
-<%= select_tag "list_name", options_from_collection_for_select(List.all, 'id', 'name',current_user.lists.map{ |j| j.id }) %>
+<!-- select_tag "list_name", options_from_collection_for_select(List.all, 'id', 'name',current_user.lists.map{ |j| j.id }) -->
