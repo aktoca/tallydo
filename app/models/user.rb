@@ -9,5 +9,6 @@ class User < ActiveRecord::Base
 
   has_many :tasks
   has_many :movies, through: :tasks, source: :doable, source_type: "Movie"
+  has_and_belongs_to_many :lists 
 
 end

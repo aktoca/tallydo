@@ -2,18 +2,21 @@ Tallydo::Application.routes.draw do
 
   root 'movies#index'
 
-  
+
   resources :sessions
   resources :users do
     resources :tasks
   end
-   
+
   get 'login' => 'sessions#new', :as => :login
   post 'logout' => 'sessions#destroy', :as => :logout
-  
+
+  post "addUser/:id" => "lists#addUser", :as => :addUser
+
   resources :movies
-  resources :lists
-  resources :rankings
+  resources :lists do
+    resources :rankings
+  end
 
 
   # The priority is based upon order of creation: first created -> highest priority.

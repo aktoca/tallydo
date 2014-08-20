@@ -3,5 +3,6 @@ class List < ActiveRecord::Base
 
   has_many :rankings 
   has_many :movies, through: :rankings
+  has_and_belongs_to_many :movies
   
 end

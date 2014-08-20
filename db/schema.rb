@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140720031226) do
+ActiveRecord::Schema.define(version: 20140814030013) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,11 @@ ActiveRecord::Schema.define(version: 20140720031226) do
     t.boolean  "ongoing",    default: false
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "lists_users", force: true do |t|
+    t.integer "user_id"
+    t.integer "list_id"
   end
 
   create_table "movies", force: true do |t|

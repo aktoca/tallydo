@@ -1,0 +1,11 @@
+<div>
+  <% @lists.each do |list| %>
+  <%= link_to list.name, list_path(list.id) %>
+  <div class="add"> 
+    <%= button_to( "Add", addUser_path(list.id)  ) %>
+</div>
+  <% end %>
+</div>
+
+
+<%= select_tag "list_name", options_from_collection_for_select(List.all, 'id', 'name',current_user.lists.map{ |j| j.id }) %>
