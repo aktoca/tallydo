@@ -1,7 +1,10 @@
-<h1>Tasks#index</h1>
-<p> Total: <%= @user.tasks.length %> </p>
+<h1>Tasks#index</h1> <p> Total: <%= @user.tasks.length %> </p>
+<div> Progress: <%= Task.percent_done(current_user) %>%</div>
 <p>Movies: <%= @user.movies.length %></p>
 <div> <%= render partial: '/movies/movies_each', locals: {movies: @user.movies.all } %>
+  <br/>
+  <%= Task.mine(current_user) %>
+  <br/>
 </div>
 
 
@@ -11,18 +14,40 @@
     <%= list.name %>
   </div>
 <% end %>
+<br />
+<br />
+<div> Todo: <%= current_user.tasks.todo.length %>  </div>
+
+
+<!--
+    ranks = List.find(params[:id]).rankings
+
+    ranks.each do |rank|
+      if Task.find_by(doable_id: rank.doable_id, doable_type: rank.doable_type)
+      -->
+
+
 
 <h3>Tasks</h3>
 <div style="border:1px solid red">
-  <% current_user.tasks.each do |task| %>
-    <%= form_tag user_task_path(current_user, task.id), method: :PUT do %>
-      <%= hidden_field_tag :done, 'true' %>
-      <%= submit_tag 'Seen It' %>
-    <%end %>
-    <div> []<%= task.done %></div>
-    <div><%= Movie.find(task.doable_id).movie_title%></div>
-    <div><%= Movie.find(task.doable_id).year %></div>
-    <div><%= Movie.find(task.doable_id).director%></div>
-  <%end %>
 
+    <%= form_tag user_complete_path(current_user), method: :put do %>
+  <% current_user.tasks.each do |task| %>
+      <% if task.done == false %>
+        <%=  check_box_tag 'task_ids', task.id %>
+        <div>ToDo</div>
+      <% else %>
+        <%=  check_box_tag 'task_ids', task.id, true %>
+        <div> Tallied </div>
+      <% end %>
+
+      <div>
+        <div><%= Movie.find(task.doable_id).movie_title%></div>
+        <div><%= Movie.find(task.doable_id).year %></div>
+        <div><%= Movie.find(task.doable_id).director%></div>
+      </div>
+      <div> <%= Ranking.find_by(doable_id: task.doable_id, doable_type: task.doable_type).list.name%> </div>
+    <% end %>
+      <%= submit_tag 'Seen It' %>
+  <% end %>
 </div>
