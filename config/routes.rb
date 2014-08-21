@@ -5,7 +5,9 @@ Tallydo::Application.routes.draw do
 
   resources :sessions
   resources :users do
+    put "tasks/complete" => "tasks#complete", as: :complete
     resources :tasks
+
   end
 
   get 'login' => 'sessions#new', :as => :login
