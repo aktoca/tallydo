@@ -1,9 +1,8 @@
 class TasksController < ApplicationController
 
   def index
-
     @task = Task.all
-    @user = current_user
+    @user = User.find(params[:user_id])
   end
 
   def new
@@ -26,8 +25,7 @@ class TasksController < ApplicationController
 
     ranks.each do |rank|
       if Task.find_by(doable_id: rank.doable_id, doable_type: rank.doable_type)
-        task = Task.new()
-        task.user_id = current_user.id
+        task = current_user.tasks.new()
         task.doable_id = rank.doable_id
         task.doable_type = rank.doable_type
         @tasks << task
@@ -44,9 +42,10 @@ class TasksController < ApplicationController
   def show
     @task = Task.find(params[:id])
   end
-  def update 
-    redirect_to :back, notice: "Update 'seen it'"
+
+  def complete
     Task.where(id: params[:task_ids]).update_all(done: true)
+    redirect_to :back, notice: "Update 'seen it'"
   end
 
   def delete
@@ -55,7 +54,7 @@ class TasksController < ApplicationController
 
   private 
   def task_params
-    params.require(:task).permit(:id, :user_id, :doable_id, :doable_type, :done, :notes)
+    params.require(:task).permit(:id, :user_id, :doable_id, :doable_type, :done, :notes, :task_ids)
   end
 
 end
