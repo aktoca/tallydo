@@ -8,7 +8,7 @@
 </div>
 
 
-<h3>Lists</h3>
+<h3>Lists (<%= current_user.lists.length%>)</h3>
 <% current_user.lists.each do |list|%> 
   <div>
     <%= list.name %>
@@ -30,24 +30,10 @@
 
 <h3>Tasks</h3>
 <div style="border:1px solid red">
-
-    <%= form_tag user_complete_path(current_user), method: :put do %>
-  <% current_user.tasks.each do |task| %>
-      <% if task.done == false %>
-        <%=  check_box_tag 'task_ids', task.id %>
-        <div>ToDo</div>
-      <% else %>
-        <%=  check_box_tag 'task_ids', task.id, true %>
-        <div> Tallied </div>
-      <% end %>
-
-      <div>
-        <div><%= Movie.find(task.doable_id).movie_title%></div>
-        <div><%= Movie.find(task.doable_id).year %></div>
-        <div><%= Movie.find(task.doable_id).director%></div>
-      </div>
-      <div> <%= Ranking.find_by(doable_id: task.doable_id, doable_type: task.doable_type).list.name%> </div>
-    <% end %>
-      <%= submit_tag 'Seen It' %>
-  <% end %>
+  <%= render partial: "task_each" %>
 </div>
+<%= render( partial: "collection",
+           collection: current_user.tasks,
+           #%w{a b c d e fun ghost house indigo},
+           spacer_template: "spacer") %>
+

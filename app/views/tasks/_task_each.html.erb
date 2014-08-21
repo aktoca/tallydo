@@ -1,0 +1,24 @@
+    <%= form_tag user_complete_path(current_user), method: :put do %>
+  <% current_user.tasks.each do |task| %>
+      <% if task.done == false %>
+        <!--  check_box_tag 'task_ids', task.id -->
+        <%=  check_box_tag 'task[done]', true, task.done , onclick: toggle_value(task)%>
+        <%= image_tag 'spinner.gif', id: "spinner-#{task.id}", style: 'display: none' %>
+        <div>ToDo</div>
+      <% else %>
+        <!--  check_box_tag 'task_ids', task.id, true -->
+        <%=  check_box_tag 'task[done]', "1", task.done , onclick: toggle_value(task) %>
+        <%= image_tag 'spinner.gif', id: "spinner-#{task.id}", style: 'display: none' %>
+        <div> Tallied </div>
+      <% end %>
+
+      <div>
+        <div><%= Movie.find(task.doable_id).movie_title%></div>
+        <div><%= Movie.find(task.doable_id).year %></div>
+        <div><%= Movie.find(task.doable_id).director%></div>
+      </div>
+      <div> <%= Ranking.find_by(doable_id: task.doable_id, doable_type: task.doable_type) %> </div> <!--.list.name -->
+    <% end %>
+
+      <%= submit_tag 'Seen It' %>
+  <% end %>
