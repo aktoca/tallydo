@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>TallyDo</title>
+    <title> <%= page_title %> </title>
+
     <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
     <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
     <%= csrf_meta_tags %>
@@ -24,7 +25,7 @@
         </div>
         <div class="settings nav">
           <ul>
-            <li> <%= link_to current_user.username, edit_user_path(current_user.id) %></li>
+            <li> <%= link_to current_user.username, user_path(current_user.id) %></li>
             <li> <%= link_to "Logout", session_path("current"), method: :delete %></li>
           </ul>
         </div>
