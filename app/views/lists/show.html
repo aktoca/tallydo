@@ -10,5 +10,6 @@
 
 <% @list.rankings.each do |rank| %>
 <% movie =  Movie.find(rank.doable_id) %>
+<%= rank.rank %>
 <div><%= movie.movie_title %> (<%= movie.year %>)</div>
 <% end %>

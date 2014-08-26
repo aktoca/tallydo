@@ -1,39 +1,22 @@
-<h1>Tasks#index</h1> <p> Total: <%= @user.tasks.length %> </p>
-<div> Progress: <%= Task.percent_done(current_user) %>%</div>
-<p>Movies: <%= @user.movies.length %></p>
-<div> <%= render partial: '/movies/movies_each', locals: {movies: @user.movies.all } %>
-  <br/>
-  <%= Task.mine(current_user) %>
-  <br/>
-</div>
-
-
-<h3>Lists (<%= current_user.lists.length%>)</h3>
-<% current_user.lists.each do |list|%> 
-  <div>
-    <%= list.name %>
-  </div>
-<% end %>
-<br />
-<br />
-<div> Todo: <%= current_user.tasks.todo.length %>  </div>
-
-
-<!--
-    ranks = List.find(params[:id]).rankings
-
-    ranks.each do |rank|
-      if Task.find_by(doable_id: rank.doable_id, doable_type: rank.doable_type)
-      -->
-
-
-
-<h3>Tasks</h3>
-<div style="border:1px solid red">
-  <%= render partial: "task_each" %>
-</div>
-<%= render( partial: "collection",
+<h1>Tasks</h1>
+<!-- render( partial: "collection",
            collection: current_user.tasks,
            #%w{a b c d e fun ghost house indigo},
-           spacer_template: "spacer") %>
-
+           spacer_template: "spacer"
+) -->
+<h3>All:</h3>
+<%= render( partial: "doable_task",
+           collection: current_user.tasks,
+           spacer_template: "spacer"
+) %>
+<br />
+<h3>ByList</h3>
+<%= render( partial: "by_list",
+           collection: current_user.tasks,
+           spacer_template: "spacer"
+) %>
+<h3>ByType</h3>
+<%= render( partial: "by_doable",
+           collection: current_user.tasks.sort_by{|t| t.doable_type},
+           spacer_template: "spacer"
+) %>

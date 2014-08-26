@@ -1,1 +1,18 @@
 <h1> <%= @user.username %></h1>
+
+<div> TallyDo Total: <%= @user.tasks.length %> </div>
+<div> Progress: <%= Task.percent_done(current_user) %>%</div>
+<br/>
+<div> Todo: <%= current_user.tasks.todo.length %>  </div>
+<div> Tallied: <%= current_user.tasks.tallied.length %>  </div>
+
+<h3>Type:</h3>
+<div> Movies: <%= @user.movies.length %> </div>
+<div> Others: tbd </div>
+
+<h3>Lists (<%= current_user.lists.length%>)</h3>
+<% current_user.lists.each do |user_list| %>
+<div> <%= link_to user_list.name, user_tasks_path(@user) %> </div>
+<% end %>
+
+
