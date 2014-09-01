@@ -8,6 +8,6 @@ class Task < ActiveRecord::Base
   belongs_to :doable, polymorphic: true
   belongs_to :movie, -> { where(movies: {doable_type: 'Movie' }) }, foreign_key: 'doable_id'
   belongs_to :user
-
+  has_and_belongs_to_many :lists 
 
 end
