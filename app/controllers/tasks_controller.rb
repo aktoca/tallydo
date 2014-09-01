@@ -1,8 +1,13 @@
 class TasksController < ApplicationController
 
   def index
-    @task = Task.all
     @user = User.find(params[:user_id])
+    @list = List.first
+    @tasks = Task.mine(@user)
+    filtering_params(params).each do |key, value|
+      @tasks = @tasks.by_doable(params[:by_type])  if params[:by_type].present?
+      @list = List.find(params[:by_list]) if params[:by_list].present?
+    end
   end
 
   def new
@@ -16,7 +21,23 @@ class TasksController < ApplicationController
     else
       render 'new'
     end
+  end
 
+  def update
+    @task = Task.find(params[:id])
+
+    respond_to do |format|
+      if @task.update_attributes(task_params)
+        flash[:notice] = 'Task was successfully updated.'
+        format.html {redirect_to user_task_path(current_user)}
+        format.xml {head :ok}
+        format.js {head :ok}
+      else 
+        format.html {render action: 'edit' }
+        format.xml { render xml: @task.errors, status: :unprocessable_entity}
+        format.js {head :unprocessable_entity}
+      end
+    end
   end
 
   def addList 
@@ -55,6 +76,11 @@ class TasksController < ApplicationController
   private 
   def task_params
     params.require(:task).permit(:id, :user_id, :doable_id, :doable_type, :done, :notes, :task_ids)
+  end
+
+
+  def filtering_params(params)
+    params.slice(:by_type, :by_list)
   end
 
 end
