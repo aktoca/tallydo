@@ -14,76 +14,21 @@
   </head>
   <body>
 
-
-    <div class="l-yacht-navbar">
+    <div class="header">
       <nav class="navbar navbar-default navbar-landing-page" role="navigation">
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-12">
-
-            <div class="navbar-header">
-              <%= link_to image_tag("logo.png", {class: "m-splash-navbar-logo j-navbar-logo", alt: 'Td'}), (current_user ? user_tasks_path(current_user) : lists_path ), class:"navbar-brand" %> 
-              <button class="navbar-toggle" id="pancakes" data-toggle="collapse" type="button">
-                <span class="sr-only"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
-            </div>
-
-
-            <div class="collapse navbar-collapse navbar-ex1-collapse" >
-
-              <% if current_user %>
-                <ul class="nav navbar-nav" >
-                  <li class:"m-yacht-navbar-category"><%= link_to content_tag(:span, "All Lists", class: "navbar-link-text"), lists_path %></li> 
-                  <li class:"m-yacht-navbar-category"><%= link_to content_tag(:span, "My TallyDo", class: "navbar-link-text"), user_tasks_path(current_user) %></li> 
-                  <li class:"m-yacht-navbar-category hidden-sm hidden-md"> <%= link_to "More?" %></li> 
-                  <li>  <%= link_to "FAQ" %></li>
-                </ul>
-
-                <ul class="nav navbar-nav navbar-right">
-                  <li class="m-yacht-navbar-category"> <%= link_to current_user.username, user_path(current_user.id) %></li>
-                  <li class="m-yacht-navbar-category"> <%= link_to "Logout", session_path("current"), method: :delete %></li>
-                </ul>
-
-              <% else %>
-                <ul class="nav navbar-nav" > </ul>
-                <ul class="nav navbar-nav navbar-right">
-                  <li class="m-yacht-navbar-category"><%= link_to content_tag(:span, "Register", class: "navbar-link-text"), new_user_path %></li>
-                  <li class:"m-yacht-navbar-category">
-                  <%= link_to content_tag(:button, "Sign-in", class: "yacht-button yacht-button-light-gray yacht-button-small"), :login, {class: "m-navbar-signup hidden-xs hidden-sm"} %> 
-                  <%= link_to content_tag(:span, "Sign-in", class: "navbar-link-text"), :login, class: "visible-xs" %>
-                  </li>
-                </ul>
-
-              <% end %>
-            </div>
-
-          </div>
-
-
-
-
-        </div>
-      </div>
+        <%= render 'layouts/navbar' %>
+      </nav>
     </div>
-    </nav>
-  </div>
 
-  <!--END HEADER -->
+    <div class="page-content">
+      <div class="message">
+        <p id="notice"><%= flash[:notice] %></p>
+        <p id="alert"><%= flash[:alert] %></p>
+      </div>
+      <%= yield %>
+    </div>
 
-
-
-  <div class="message">
-    <p id="notice"><%= flash[:notice] %></p>
-    <p id="alert"><%= flash[:alert] %></p>
-  </div>
-
-  <div class="page-content">
-    <%= yield %>
-
-  </div>
-
-</body>
+    <div class="footer">
+    </div>
+  </body>
 </html>
