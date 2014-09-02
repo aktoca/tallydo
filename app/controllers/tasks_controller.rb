@@ -5,8 +5,11 @@ class TasksController < ApplicationController
     @list = List.first
     @tasks = Task.mine(@user)
     filtering_params(params).each do |key, value|
+      if params[:by_list].present?
+        @list = List.find(params[:by_list]) 
+        @tasks = @list.tasks.mine(@user)
+      end
       @tasks = @tasks.by_doable(params[:by_type])  if params[:by_type].present?
-      @list = List.find(params[:by_list]) if params[:by_list].present?
     end
   end
 
