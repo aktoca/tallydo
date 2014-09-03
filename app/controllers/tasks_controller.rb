@@ -12,6 +12,7 @@ class TasksController < ApplicationController
       @tasks = @tasks.by_complete(params[:by_done]) if params[:by_done].present?
       @tasks = @tasks.by_doable(params[:by_type])  if params[:by_type].present?
     end
+   @all_types =  all_doable
   end
 
   def new
@@ -86,5 +87,10 @@ class TasksController < ApplicationController
   def filtering_params(params)
     params.slice(:by_type, :by_list, :by_done)
   end
+
+  def all_doable
+    ['Movie', 'Book', 'Location', 'TV Show'] 
+  end
+
 
 end
