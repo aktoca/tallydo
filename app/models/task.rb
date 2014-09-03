@@ -3,6 +3,7 @@ class Task < ActiveRecord::Base
   scope :tallied,-> { where(done: true)}
   scope :mine, lambda {|user| where(user_id: user.id)}
   scope :by_doable,lambda {|type|where(doable_type: type)}
+  scope :by_complete,lambda {|complete|where(done: complete)}
   scope :percent_done, lambda {|user| (mine(user).tallied.length / mine(user).length) * 100} 
 
   belongs_to :doable, polymorphic: true

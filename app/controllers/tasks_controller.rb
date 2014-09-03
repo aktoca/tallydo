@@ -2,13 +2,14 @@ class TasksController < ApplicationController
 
   def index
     @user = User.find(params[:user_id])
-    @list = List.first
+    @list = @user.lists.first
     @tasks = Task.mine(@user)
     filtering_params(params).each do |key, value|
       if params[:by_list].present?
         @list = List.find(params[:by_list]) 
         @tasks = @list.tasks.mine(@user)
       end
+      @tasks = @tasks.by_complete(params[:by_done]) if params[:by_done].present?
       @tasks = @tasks.by_doable(params[:by_type])  if params[:by_type].present?
     end
   end
@@ -83,7 +84,7 @@ class TasksController < ApplicationController
 
 
   def filtering_params(params)
-    params.slice(:by_type, :by_list)
+    params.slice(:by_type, :by_list, :by_done)
   end
 
 end
