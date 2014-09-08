@@ -1,4 +1,5 @@
 class ListsController < ApplicationController
+
   def index
     @lists = List.all
   end
@@ -20,7 +21,7 @@ class ListsController < ApplicationController
 
   private 
   def list_params 
-    params.require(:list).permit(:id,:name, :year, :creator, :ongoing,  user_ids: [])
+    params.require(:list).permit(:id,:name, :year, :creator, :ongoing,  user_ids: [], task_ids:[])
   end
 
 
