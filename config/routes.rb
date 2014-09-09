@@ -1,12 +1,12 @@
 Tallydo::Application.routes.draw do
 
-  root 'movies#index'
+  root 'users#new'
 
 
   resources :sessions
   resources :users do
     put "tasks/complete" => "tasks#complete", as: :complete
-    resources :tasks
+    resources :tasks 
 
   end
 
