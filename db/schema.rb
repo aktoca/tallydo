@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140814030013) do
+ActiveRecord::Schema.define(version: 20140908213724) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,17 +25,22 @@ ActiveRecord::Schema.define(version: 20140814030013) do
     t.datetime "updated_at"
   end
 
-  create_table "lists_users", force: true do |t|
+  create_table "lists_tasks", id: false, force: true do |t|
+    t.integer "list_id"
+    t.integer "task_id"
+  end
+
+  create_table "lists_users", id: false, force: true do |t|
     t.integer "user_id"
     t.integer "list_id"
   end
 
   create_table "movies", force: true do |t|
-    t.string   "movie_title"
+    t.string   "title"
     t.string   "aka_title"
     t.integer  "year"
     t.string   "description"
-    t.string   "director"
+    t.string   "author"
     t.string   "actors",      default: [], array: true
     t.string   "imdbid"
     t.string   "poster"
