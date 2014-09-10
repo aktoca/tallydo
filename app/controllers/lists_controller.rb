@@ -8,15 +8,23 @@ class ListsController < ApplicationController
     @list = List.find(params[:id])
   end
 
+  def new
+    @list = List.new
+  end
+
   def create
-    @list = List.find(params[:id])
-    @user
+    @list = List.new(list_params)
+    if @list.save
+      redirect_to list_path(@list.id) , notice: 'List created'
+    else
+      render 'new'
+    end
   end
 
   def addUser
     list = List.find(params[:id])
     current_user.lists << list
-    redirect_to addList_path(list)
+    redirect_to addListTask_path(list)
   end
 
   private 
