@@ -1,15 +1,11 @@
-<h1>
-  Sign Up
-</h1>
 <%= form_for @user do |f| %>
   <div class="field">
-    <%= f.label :username %><br />
-    <%= f.text_field :username %>
-  </div>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email %>
-  </div>
+  <%= f.label :username %><br />
+  <%= f.text_field :username %>
+</div>
+<div class="field">
+  <%= f.label :email %><br />
+  <%= f.email_field :email %>
   <div class="field">
     <%= f.label :password %><br />
     <%= f.password_field :password %>
@@ -18,7 +14,9 @@
     <%= f.label :password_confirmation %><br />
     <%= f.password_field :password_confirmation %>
   </div>
-  <div class="field">
-    <%= f.submit %>
-  </div>
+</div>
+<div class="field">
+  <%= f.submit %>
+</div>
+<div> <%=link_to 'Login', :login %> <div>
 <% end %>

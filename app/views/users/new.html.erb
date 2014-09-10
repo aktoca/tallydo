@@ -1,3 +1,21 @@
-<%= render 'form' %>
+<h1>A to-do list and record keeper in one</h1>
 
-<%= link_to 'Back', sessions_path %>
+<div class="description">
+
+  <p>Keep track of what you have done and what's next.</p>
+
+  <ul>
+    <li>Add a list</li>
+    <li>Tally off what you've done</li>
+    <li>Find what's next do-to on the list</li>
+    <li>Repeat</li>
+  </ul>
+
+  <div> <%= link_to 'Look Around', lists_path%> </div>
+</div>
+
+
+<div class="form">  
+  <h2>Sign Up </h2>
+  <%= render 'form' %>
+</div>

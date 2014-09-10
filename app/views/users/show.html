@@ -1,18 +1,27 @@
 <h1> <%= @user.username %></h1>
+<%= link_to 'edit profile', edit_user_path(current_user) %>
 
-<div> TallyDo Total: <%= @user.tasks.length %> </div>
+<div> TallyDo Total: <%= @user.tasks.length %>  <%=  (link_to "Add List", lists_path) if Task.percent_done(current_user) == 0 %></div>
 <div> Progress: <%= Task.percent_done(current_user) %>%</div>
-<br/>
 <div> Todo: <%= current_user.tasks.todo.length %>  </div>
 <div> Tallied: <%= current_user.tasks.tallied.length %>  </div>
 
-<h3>Type:</h3>
-<div> Movies: <%= @user.movies.length %> </div>
-<div> Others: tbd </div>
+<div>
+  <h3>Lists (<%= current_user.lists.length%>)</h3>
+  <ul>
+    <% current_user.lists.each do |user_list| %>
+    <li><%= link_to user_list.name, user_tasks_path(@user, by_list: user_list.id) %></li>
+    <% end %>
+  </ul>
+</div>
 
-<h3>Lists (<%= current_user.lists.length%>)</h3>
-<% current_user.lists.each do |user_list| %>
-<div> <%= link_to user_list.name, user_tasks_path(@user) %> </div>
-<% end %>
+<div>
+  <h3>Types</h3>
+  <ul>
+    <% all_types.each do |doable| %>
+    <li><%= doable.pluralize %>: <%= current_user.tasks.where(doable_type: doable).length  %> </li>
+    <% end %>
+  </ul>
+</div>
 
 
