@@ -1,22 +1,16 @@
-<h1>Tasks</h1>
+<div class="description"><h3><%= params[:by_type] || params[:by_list] || "All" %> (<%= @tasks.length %>) </h3></div>
+
+
+<%= form_tag user_complete_path, :method => :put do %>
+  <%= render( partial: "doable", collection: @tasks) %>
+  <%= submit_tag "Mark as done" %>
+<% end %>
+
+
+
 <!-- render( partial: "collection",
-           collection: current_user.tasks,
-           #%w{a b c d e fun ghost house indigo},
-           spacer_template: "spacer"
+collection: current_user.tasks,
+#%w{a b c d e fun ghost house indigo},
+spacer_template: "spacer"
 ) -->
-<h3>All:</h3>
-<%= render( partial: "doable_task",
-           collection: current_user.tasks,
-           spacer_template: "spacer"
-) %>
-<br />
-<h3>ByList</h3>
-<%= render( partial: "by_list",
-           collection: current_user.tasks,
-           spacer_template: "spacer"
-) %>
-<h3>ByType</h3>
-<%= render( partial: "by_doable",
-           collection: current_user.tasks.sort_by{|t| t.doable_type},
-           spacer_template: "spacer"
-) %>
+

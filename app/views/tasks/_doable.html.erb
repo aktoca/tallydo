@@ -1,0 +1,38 @@
+<div class="task-row">
+
+  <div class="task-info">
+    <div class="doable-row">
+      <% object =  doable.doable_type.singularize.classify.constantize %>
+      <ul class="<%= object %>">
+
+        <li class="task-done check">
+        <% status = defined?(doable.done) ? doable.done : Task.find(doable.id).done %>
+        <%= check_box_tag "task_ids[]", doable.id, status %>
+        <% if ( status ==false ) %>
+          <div>ToDo</div>
+        <% else %>
+          <div> Tallied </div>
+        <% end %>
+        </li>
+
+        <li class="task-poster"> [] </li>
+        <% type = object.find(doable.doable_id) %>
+        <li class="doable-title"> <%= type.title %> </li>
+        <li class="doable-year"> <%= type.year %> </li>
+        <li class="doable-creator" > <%= type.author%> </li>
+        <li class="doable-meta">
+        <ul>
+          <% if object="Movie" %>
+          <li>#Lists:<%= type.lists.length%></li>
+          <li><%=type.imdbid%></li>
+          <li><%= object %></li>
+          <li><%= link_to 'edit', edit_user_task_path(current_user, doable.id) if defined?(doable.done) %></li>
+        <%end%>
+        </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
