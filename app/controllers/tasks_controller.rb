@@ -4,6 +4,7 @@ class TasksController < ApplicationController
     @user = User.find(params[:user_id])
     @list = @user.lists.first
     @tasks = Task.mine(@user)
+
     filtering_params(params).each do |key, value|
       if params[:by_list].present?
         @list = List.find(params[:by_list]) 
@@ -12,6 +13,10 @@ class TasksController < ApplicationController
       @tasks = @tasks.by_complete(params[:by_done]) if params[:by_done].present?
       @tasks = @tasks.by_doable(params[:by_type])  if params[:by_type].present?
     end
+  end
+
+  def show
+    @task = Task.find(params[:id])
   end
 
   def new
@@ -44,7 +49,7 @@ class TasksController < ApplicationController
     end
   end
 
-  def addList 
+  def addListTask 
     @tasks = []
     ranks = List.find(params[:id]).rankings
 
@@ -65,13 +70,12 @@ class TasksController < ApplicationController
     end
   end
 
-  def show
-    @task = Task.find(params[:id])
-  end
-
   def complete
-    Task.where(id: params[:task_ids]).update_all(done: true)
-    redirect_to :back, notice: "Update 'seen it'"
+    if Task.where(id: params[:task_ids]).update_all(done: true)
+      redirect_to :back, notice: "Update 'seen it'"
+    else
+      render 'index', notice: "NOT UPDATED"
+    end
   end
 
   def delete
