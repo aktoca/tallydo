@@ -2,19 +2,17 @@ Tallydo::Application.routes.draw do
 
   root 'users#new'
 
-
   resources :sessions
   resources :users do
     put "tasks/complete" => "tasks#complete", as: :complete
     resources :tasks 
-
   end
 
   get 'login' => 'sessions#new', :as => :login
   post 'logout' => 'sessions#destroy', :as => :logout
 
   post "addUser/:id" => "lists#addUser", :as => :addUser
-  get "addList/:id" => "tasks#addList", :as => :addList
+  get "addListTask/:id" => "tasks#addListTask", :as => :addListTask
 
   resources :movies
   resources :lists do
