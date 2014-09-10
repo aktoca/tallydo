@@ -1,9 +1,9 @@
-<h1>
-  All Films
-</h1>
+<h1> All Films </h1>
 
 <div>
-  <%= render partial: 'movies_each', locals: { movies: @movies  } %>
+  <ul>
+    <% @movies.each do |movie| %>
+      <li><%= link_to "#{movie.title} (#{movie.year})", movie_path(movie.id) %></li>
+  <%end%>
+  </ul>
 </div>
-
-
