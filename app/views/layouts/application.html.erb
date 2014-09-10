@@ -1,34 +1,44 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title> <%= page_title %> </title>
+<head>
+<title> <%= page_title %> </title>
 
-    <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-    <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
-    <%= csrf_meta_tags %>
+<%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+<%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+<%= csrf_meta_tags %>
 
-    <style>
+<style>
 
-    </style>
+</style>
 
-  </head>
-  <body>
+</head>
+<body>
 
+  <div class="page">
     <div class="header">
-      <nav class="navbar navbar-default navbar-landing-page" role="navigation">
+      <nav class="navbar navbar-default" role="navigation">
         <%= render 'layouts/navbar' %>
       </nav>
+      <% if current_user && current_page?(user_tasks_path(current_user)) %>
+        <div class="nav-sub navbar-default">
+        <%= render 'layouts/subnav' %>
+      </div>
+    <% end %>
     </div>
 
+    <div class="message">
+      <p id="notice"><%= flash[:notice] %></p>
+      <p id="alert"><%= flash[:alert] %></p>
+    </div>
     <div class="page-content">
-      <div class="message">
-        <p id="notice"><%= flash[:notice] %></p>
-        <p id="alert"><%= flash[:alert] %></p>
+      <div class="page-box">
+        <%= yield %>
       </div>
-      <%= yield %>
     </div>
 
     <div class="footer">
     </div>
-  </body>
+
+  </div>
+</body>
 </html>
