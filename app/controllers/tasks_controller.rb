@@ -32,6 +32,10 @@ class TasksController < ApplicationController
     end
   end
 
+  def edit 
+    @task = Task.new
+  end
+
   def update
     @task = Task.find(params[:id])
 
