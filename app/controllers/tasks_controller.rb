@@ -58,13 +58,15 @@ class TasksController < ApplicationController
     ranks = List.find(params[:id]).rankings
 
     ranks.each do |rank|
-      if Task.find_by(doable_id: rank.doable_id, doable_type: rank.doable_type)
+      task =  Task.mine(current_user).find_by(doable_id: rank.doable_id, doable_type: rank.doable_type)
+      if task.present?
+      else
         task = current_user.tasks.new()
         task.doable_id = rank.doable_id
         task.doable_type = rank.doable_type
-        task.lists << List.find(params[:id]) 
         @tasks << task
       end
+        task.lists << List.find(params[:id]) 
     end
 
     if @tasks.each {|t| t.save}
