@@ -3,16 +3,16 @@ class TasksController < ApplicationController
   def index
     @user = User.find(params[:user_id])
     @list = @user.lists.first
-    @tasks = Task.mine(@user).page(1).per(5)
+    @tasks = Task.mine(@user).page(params[:page])..page(1).per(5)
 
 
     filtering_params(params).each do |key, value|
       if params[:by_list].present?
         @list = List.find(params[:by_list]) 
-        @tasks = @list.tasks.mine(@user).page(1).per(5) 
+        @tasks = @list.tasks.mine(@user).page(params[:page]).per(5) 
       end
-      @tasks = @tasks.by_complete(params[:by_done]).page(1).per(5) if params[:by_done].present?
-      @tasks = @tasks.by_doable(params[:by_type]).page(1).per(5) if params[:by_type].present?
+      @tasks = @tasks.by_complete(params[:by_done]).page(params[:page]).per(5) if params[:by_done].present?
+      @tasks = @tasks.by_doable(params[:by_type]).page(params[:page]).per(5) if params[:by_type].present?
     end
   end
 

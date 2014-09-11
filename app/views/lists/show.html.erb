@@ -9,5 +9,6 @@
 </div> 
 
 
-<%= render( partial: "tasks/doable", collection: @list.rankings) %>
+<%= render( partial: "tasks/doable", collection: @rankings) %>
 
+<%= paginate @rankings %>

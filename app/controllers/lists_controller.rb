@@ -6,6 +6,7 @@ class ListsController < ApplicationController
 
   def show
     @list = List.find(params[:id])
+    @rankings = @list.rankings.page(params[:page]).per(5)
   end
 
   def new
