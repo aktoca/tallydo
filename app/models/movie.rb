@@ -1,5 +1,5 @@
 class Movie < ActiveRecord::Base
-  validates :movie_title, :year, :director, presence: true
+  validates :title, :year, :author, presence: true
 
   has_many :tasks, as: :doable
   has_many :users, through: :tasks 
