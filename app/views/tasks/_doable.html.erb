@@ -6,7 +6,14 @@
       <ul class="<%= object %>">
 
         <li class="task-done check">
-        <% status = defined?(doable.done) ? doable.done : Task.find(doable.id).done %>
+        <% if defined?(doable.done) %>
+          <% status = doable.done %>
+        <% elsif Task.mine(current_user).where(id: doable.id).exists? %>
+          <% status = Task.mine(current_user).find(doable.id).done %>
+        <%else%> 
+          <% status = false %>
+        <%end%> 
+
         <%= check_box_tag "task_ids[]", doable.id, status %>
         <% if ( status ==false ) %>
           <div>ToDo</div>
@@ -23,16 +30,14 @@
         <li class="doable-meta">
         <ul>
           <% if object="Movie" %>
-          <li>#Lists:<%= type.lists.length%></li>
-          <li><%=type.imdbid%></li>
-          <li><%= object %></li>
-          <li><%= link_to 'edit', edit_user_task_path(current_user, doable.id) if defined?(doable.done) %></li>
-        <%end%>
+            <li>#Lists:<%= type.lists.length%></li>
+            <li><%=type.imdbid%></li>
+            <li><%= object %></li>
+            <li><%= link_to 'edit', edit_user_task_path(current_user, doable.id) if defined?(doable.done) %></li>
+          <%end%>
         </ul>
         </li>
       </ul>
     </div>
   </div>
 </div>
-
-
