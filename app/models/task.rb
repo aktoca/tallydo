@@ -4,7 +4,7 @@ class Task < ActiveRecord::Base
   scope :mine, lambda {|user| where(user_id: user.id)}
   scope :by_doable,lambda {|type|where(doable_type: type)}
   scope :by_complete,lambda {|complete|where(done: complete)}
-  scope :percent_done, lambda {|user| mine(user).length > 0 ? (mine(user).tallied.length / mine(user).length) * 100  :0 } 
+  scope :percent_done, lambda {|user| (mine(user).tallied.length.to_d / mine(user).length.to_d) * 100 } 
 
   belongs_to :doable, polymorphic: true
   belongs_to :movie, -> { where(movies: {doable_type: 'Movie' }) }, foreign_key: 'doable_id'
