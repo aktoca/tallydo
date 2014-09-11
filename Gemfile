@@ -36,3 +36,8 @@ end
 gem 'rspec-rails'
 gem 'sorcery'
 
+
+
+
+
+gem 'kaminari'
