@@ -67,7 +67,7 @@ class TasksController < ApplicationController
         task.doable_type = rank.doable_type
         @tasks << task
       end
-        task.lists << List.find(params[:id]) 
+      task.lists << List.find(params[:id]) 
     end
 
     if @tasks.each {|t| t.save}
@@ -77,13 +77,18 @@ class TasksController < ApplicationController
     end
   end
 
-  def complete
-    if Task.where(id: params[:task_ids]).update_all(done: true)
-      redirect_to :back, notice: "Update 'seen it'"
+
+  def toggle
+    @task = Task.find(params[:id])
+
+    if @task.update_attributes(done: params[:done])
+      redirect_to :tasks, notice: "Update 'seen it'"
     else
       render 'index', notice: "NOT UPDATED"
     end
   end
+
+
 
   def delete
   end
@@ -91,7 +96,7 @@ class TasksController < ApplicationController
 
   private 
   def task_params
-    params.require(:task).permit(:id, :user_id, :doable_id, :doable_type, :done, :notes, task_ids:[])
+    params.require(:task).permit(:id, :user_id, :doable_id, :doable_type, :done, :notes)
   end
 
   def filtering_params(params)
