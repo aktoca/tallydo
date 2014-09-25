@@ -3,7 +3,7 @@ class TasksController < ApplicationController
   def index
     @user = User.find(params[:user_id])
     @list = @user.lists.first
-    @tasks = Task.mine(@user).page(params[:page])..page(1).per(5)
+    @tasks = Task.mine(@user).page(params[:page]).per(5)
 
 
     filtering_params(params).each do |key, value|
