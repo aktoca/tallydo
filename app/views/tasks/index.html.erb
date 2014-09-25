@@ -7,20 +7,14 @@
 $(".task-check").bind('change', function(){
     if (this.checked){
     console.log('Yay! good work you finished it');
-    $.ajax({
-url: '/users/'+<%= current_user.id %>+'/tasks/'+this.value+'/toggle',
-type: 'POST',
-data: {"done": this.checked, "id": this.value }
-});
     } else {
     console.log('un-did the done');
-    $.ajax({
-url: '/users/'+<%= current_user.id %>+'/tasks/'+this.value+'/toggle',
-type: 'POST',
-data: {"done": 'false', "id": this.value }
-});
-    }
+    } $.ajax({
+      url: '/users/'+<%= current_user.id %>+'/tasks/'+this.value+'/toggle',
+      type: 'POST',
+      data: {"done": this.checked, "id": this.value }
     });
+});
 </script>
 
 <%= paginate @tasks %>
