@@ -1,10 +1,27 @@
 <div class="description"><h3><%= params[:by_type] || params[:by_list] || "All" %> (<%= @tasks.length %>) </h3></div>
 
 
-<%= form_tag user_complete_path, :method => :put do %>
-  <%= render( partial: "doable", collection: @tasks) %>
-  <%= submit_tag "Mark as done" %>
-<% end %>
+<%= render( partial: "doable", collection: @tasks) %>
+
+<script>
+$(".task-check").bind('change', function(){
+    if (this.checked){
+    console.log('Yay! good work you finished it');
+    $.ajax({
+url: '/users/'+<%= current_user.id %>+'/tasks/'+this.value+'/toggle',
+type: 'POST',
+data: {"done": this.checked, "id": this.value }
+});
+    } else {
+    console.log('un-did the done');
+    $.ajax({
+url: '/users/'+<%= current_user.id %>+'/tasks/'+this.value+'/toggle',
+type: 'POST',
+data: {"done": 'false', "id": this.value }
+});
+    }
+    });
+</script>
 
 <%= paginate @tasks %>
 
