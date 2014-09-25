@@ -14,13 +14,14 @@
           <% status = false %>
         <%end%> 
 
-        <%= check_box_tag "task_ids[]", doable.id, status %>
+        <%= check_box_tag "done", doable.id, status, class: "task-check" %>
         <% if ( status ==false ) %>
           <div>ToDo</div>
         <% else %>
           <div> Tallied </div>
         <% end %>
         </li>
+
 
         <li class="task-poster"> [] </li>
         <% type = object.find(doable.doable_id) %>
