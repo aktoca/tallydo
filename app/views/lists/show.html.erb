@@ -2,7 +2,7 @@
 
 <div class="add"> 
   <% if @list.users.exists?(current_user) %>
-  <%= (@list.tasks.mine(current_user).where(done: true).length.to_f / @list.tasks.mine(current_user).length.to_f ) *100 %>%
+  <%= percent_done(@list.tasks.mine(current_user)) %>%
   <% elsif current_user %>
   <%= button_to( "Add", addUser_path(@list.id)  ) %>
   <% end %>
