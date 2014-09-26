@@ -1,4 +1,6 @@
-<div class="description"><h3><%= params[:by_type] || params[:by_list] || "All" %> (<%= @tasks.length %>) </h3></div>
+<div class="description"><h3><%= params[:by_type] || params[:by_list] || "All" %> (<%= @tasks.length %>) </h3>
+<%= @tasks.length > 0 ? percent_done(@tasks) : 0 %>%
+</div>
 
 
 <%= render( partial: "doable", collection: @pagetasks) %>
@@ -18,10 +20,3 @@ $(".task-check").bind('change', function(){
 </script>
 
 <%= paginate @pagetasks %>
-
-<!-- render( partial: "collection",
-collection: current_user.tasks,
-#%w{a b c d e fun ghost house indigo},
-spacer_template: "spacer"
-) -->
-

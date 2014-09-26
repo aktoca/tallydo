@@ -1,8 +1,8 @@
 <h1> <%= @user.username %></h1>
 <%= link_to 'edit profile', edit_user_path(current_user) %>
 
-<div> TallyDo Total: <%= @user.tasks.length %>  <%=  (link_to "Add List", lists_path) if Task.percent_done(current_user) == 0 %></div>
-<div> Progress: <%= current_user.tasks.length > 0 ? Task.percent_done(current_user) : 0 %>%</div>
+<div> TallyDo Total: <%= @user.tasks.length %>  <%=  (link_to "Add List", lists_path) if percent_done(Task.mine(current_user)) == 0 %></div>
+<div> Progress: <%= current_user.tasks.length > 0 ? percent_done(Task.mine(current_user)) : 0 %>%</div>
 <div> Todo: <%= current_user.tasks.todo.length %>  </div>
 <div> Tallied: <%= current_user.tasks.tallied.length %>  </div>
 

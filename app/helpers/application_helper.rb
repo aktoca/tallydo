@@ -10,6 +10,8 @@ module ApplicationHelper
   end
 
 
-
-
+  def percent_done(tasks)
+    ((tasks.tallied.length.to_d / tasks.length.to_d) * 100).round() 
+  end
+  
 end
