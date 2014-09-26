@@ -1,11 +1,10 @@
 <li>
-  <%= link_to list.name, list_path(list.id) %>  
 
-  <% if list.users.exists?(current_user) %>
-    <%= (list.tasks.mine(current_user).where(done: true).length.to_f / list.tasks.mine(current_user).length.to_f ) *100 %>%
-  <% elsif current_user %>
+  <% if !list.users.exists?(current_user) %>
     <%= button_to( "Add", addUser_path(list.id)  ) %>
   <% end %>
 
+  <%= link_to list.name, list_path(list.id) %>  
+  <%= current_user.lists.length > 0 ? percent_done(list.tasks.mine(current_user)) : 0 %>%
 </li>
 
