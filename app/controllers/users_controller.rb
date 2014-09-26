@@ -9,7 +9,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       auto_login(@user)
-      redirect_to(new_session_path, notice: 'Welcome to TallyDo '+@user.username)
+      redirect_to(user_path(current_user), notice: 'Welcome to TallyDo '+@user.username)
     else
       render 'new'
     end
