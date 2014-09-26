@@ -5,6 +5,6 @@
   <% end %>
 
   <%= link_to list.name, list_path(list.id) %>  
-  <%= current_user.lists.length > 0 ? percent_done(list.tasks.mine(current_user)) : 0 %>%
+  <%= current_user.lists.present?  ? percent_done(list.tasks.mine(current_user)) : 0 %>%
 </li>
 
