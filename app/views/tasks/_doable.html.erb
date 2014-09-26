@@ -5,23 +5,20 @@
       <% object =  doable.doable_type.singularize.classify.constantize %>
       <ul class="<%= object %>">
 
-        <li class="task-done check">
-        <% if defined?(doable.done) %>
-          <% status = doable.done %>
-        <% elsif Task.mine(current_user).where(id: doable.id).exists? %>
-          <% status = Task.mine(current_user).find(doable.id).done %>
-        <%else%> 
-          <% status = false %>
-        <%end%> 
+        <% if current_user.lists.where(id: @list.id).present? %>
+           <li class="task-done check">
+              <% status = false %>
+              <% status = doable.done if defined?(doable.done) %>
+              <% status = Task.mine(current_user).find(doable.id).done if Task.mine(current_user).where(id: doable.id).exists? %>
 
-        <%= check_box_tag "done", doable.id, status, class: "task-check" %>
-        <% if ( status ==false ) %>
-          <div>ToDo</div>
-        <% else %>
-          <div> Tallied </div>
-        <% end %>
-        </li>
-
+            <%= check_box_tag "done", doable.id, status, class: "task-check" %>
+            <% if ( status ==false ) %>
+              <div>ToDo</div>
+            <% else %>
+              <div> Tallied </div>
+            <% end %>
+          </li>
+      <% end %>
 
         <li class="task-poster"> [] </li>
         <% type = object.find(doable.doable_id) %>
