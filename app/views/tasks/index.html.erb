@@ -1,7 +1,7 @@
 <div class="description"><h3><%= params[:by_type] || params[:by_list] || "All" %> (<%= @tasks.length %>) </h3></div>
 
 
-<%= render( partial: "doable", collection: @tasks) %>
+<%= render( partial: "doable", collection: @pagetasks) %>
 
 <script>
 $(".task-check").bind('change', function(){
@@ -17,7 +17,7 @@ $(".task-check").bind('change', function(){
 });
 </script>
 
-<%= paginate @tasks %>
+<%= paginate @pagetasks %>
 
 <!-- render( partial: "collection",
 collection: current_user.tasks,
